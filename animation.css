@@ -12,9 +12,7 @@
  --animate-repeat: 1;
 }
 
-body{
-  background-color: aqua;
-}
+
 .animate__animated {
  -webkit-animation-duration: 1s;
  animation-duration: 1s;

@@ -25,7 +25,9 @@ export default {
       this.$refs.zoomShell.addEventListener('click', (event) => {
         if (event.target.nodeName === 'IMG') {
           this.currentImgPath = event.target.src;
-          this.dialogVisible = true;
+          setTimeout(() => {
+             this.dialogVisible = true;
+          }, 0);
         }
       });
     });
@@ -39,11 +41,8 @@ export default {
       if (event.target.nodeName === 'IMG') {
         return;
       }
-      setTimeout(()=>{
-      this.currentImgPath = '';
-      
-      },1000)
       this.dialogVisible = false;
+      // this.currentImgPath = '';
     },
     mouseWheelHandler(event) {
       const step = 20;
