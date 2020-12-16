@@ -28,4 +28,4 @@ Vue.use(vueZoomImage);
   2. 组件中包含了animation.css，请注意。
 
 3. 效果：
-![image]()
+![preview.png](https://i.loli.net/2020/12/16/4re1l8YxN5EMmfQ.png)
