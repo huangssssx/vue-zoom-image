@@ -1,6 +1,11 @@
 {
   "name": "vue-zoom-image",
   "version": "1.0.0",
+  "repository": { 
+    "type" : "git",
+    "url" : "https://github.com/huangssssx/vue-zoom-image.git"
+    },
+    
   "description": "对于html中的image点击放大",
   "main": "index.js",
   "scripts": {
