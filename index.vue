@@ -26,8 +26,8 @@ export default {
       originHeight:0,
       originWidth:0,
       maxSideSize:0,
-      MAX_WIDTH:1000,
-      MAX_HEIGHT:600,
+      MAX_WIDTH:1200,
+      MAX_HEIGHT:800,
     };
   },
   watch:{
@@ -61,7 +61,7 @@ export default {
       this.originHeight = event.target.naturalHeight;
       this.originWidth = event.target.naturalWidth;
       //判断对哪个边进行缩放
-      this.zoomSide = this.originWidth>this.originWidth?"Width":"Height";
+      this.zoomSide = this.originWidth>this.originHeight?"Width":"Height";
       if(this.zoomSide ==='Width'){
         this.imageWidth = this.originWidth>MAX_WIDTH?MAX_WIDTH-200:this.originWidth;
         this.imageHeight = "auto";
@@ -129,9 +129,9 @@ export default {
     left: 0px;
     bottom: 0px;
     right: 0px;
-    img{
-      max-width: 1000px;
-    }
+    // img{
+    //   max-width: 1000px;
+    // }
   }
 
  
