@@ -26,8 +26,8 @@ export default {
       originHeight:0,
       originWidth:0,
       maxSideSize:0,
-      MAX_WIDTH:1200,
-      MAX_HEIGHT:800,
+      MAX_SIDE:800,
+      MIN_SIDE:100,
     };
   },
   watch:{
@@ -57,19 +57,23 @@ export default {
       event.stopPropagation();
     },
     imageLoadedHandler(event) {
-      let {MAX_WIDTH,MAX_HEIGHT} = this;
       this.originHeight = event.target.naturalHeight;
       this.originWidth = event.target.naturalWidth;
       //判断对哪个边进行缩放
       this.zoomSide = this.originWidth>this.originHeight?"Width":"Height";
       if(this.zoomSide ==='Width'){
-        this.imageWidth = this.originWidth>MAX_WIDTH?MAX_WIDTH-200:this.originWidth;
+        this.MAX_SIDE = 1200;
+        this.MIN_SIDE = 200;
+        this.imageWidth = this.originWidth>this.MAX_SIDE?this.MAX_SIDE-200:this.originWidth;
         this.imageHeight = "auto";
       }
       else{
-        this.imageHeight = this.originHeight>MAX_HEIGHT?MAX_HEIGHT-200:this.originHeight;
+        this.MAX_SIDE = 800;
+        this.MIN_SIDE = 200;
+        this.imageHeight = this.originHeight>this.MAX_SIDE?this.MAX_SIDE-200:this.originHeight;
         this.imageWidth  = "auto";
       }
+
     },
     closeHandler(event) {
       if (event.target.nodeName === 'IMG') {
@@ -80,8 +84,8 @@ export default {
     },
     mouseWheelHandler(event) {
       const step = 20;
-      let {zoomSide} = this;
-      const maxSide = zoomSide==='Width'?this.MAX_WIDTH:this.MAX_HEIGHT;
+      let {zoomSide,MAX_SIDE,MIN_SIDE} = this;
+      // const maxSide = zoomSide==='Width'?this.MAX_WIDTH:this.MAX_HEIGHT;
       //区分滚轮在不同系统下的状态
       if(this.os === 'mac'){
         this.wheelState = event.wheelDeltaY > 0?"down":"up";
@@ -90,16 +94,19 @@ export default {
         this.wheelState = event.wheelDeltaY > 0?"up":"down";
       }
 
-      //首先判断
+      //滚轮下滑
       if (this.wheelState === "down") {
-        if (this[`image${zoomSide}`] <= maxSide-200) {
-          this[`image${zoomSide}`] = maxSide-200;
+        if(this[`image${zoomSide}`]<MIN_SIDE){
           return;
         }
         this[`image${zoomSide}`]  -= step;
-      } else {
+      } 
+      //滚轮上滑
+      else {
+        if(this[`image${zoomSide}`]>MAX_SIDE){
+          return;
+        }
         this[`image${zoomSide}`]  += step;
-        this[`image${zoomSide}`] = this[`image${zoomSide}`] >=maxSide?maxSide:this[`image${zoomSide}`] ;
       }
     }
   }
@@ -129,9 +136,12 @@ export default {
     left: 0px;
     bottom: 0px;
     right: 0px;
-    // img{
-    //   max-width: 1000px;
-    // }
+    img{
+      // max-width: 1000px;
+      // max-height: 600px;
+      // min-width: 50px;
+      // min-height: 30px;
+    }
   }
 
  
